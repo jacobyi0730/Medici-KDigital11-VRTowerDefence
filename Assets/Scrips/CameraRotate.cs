@@ -1,8 +1,8 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// ¸¶¿ì½ºÀÇ ÀÔ·Â¿¡µû¶ó Ä«¸Ş¶ó¸¦ È¸ÀüÇÏ°í½Í´Ù.
+// ë§ˆìš°ìŠ¤ì˜ ì…ë ¥ì—ë”°ë¼ ì¹´ë©”ë¼ë¥¼ íšŒì „í•˜ê³ ì‹¶ë‹¤.
 public class CameraRotate : MonoBehaviour
 {
     public float rotSpeed = 200;
@@ -16,13 +16,13 @@ public class CameraRotate : MonoBehaviour
 
     void Update()
     {
-        // ¸¶¿ì½ºÀÇ º¯È­·®À» ¾ò¾î¿À°í½Í´Ù.
+        // ë§ˆìš°ìŠ¤ì˜ ë³€í™”ëŸ‰ì„ ì–»ì–´ì˜¤ê³ ì‹¶ë‹¤.
         float mx = Input.GetAxis("Mouse X");
         float my = Input.GetAxis("Mouse Y");
-        // ±× º¯È­·®À» ´©ÀûÇÏ°í½Í´Ù.
+        // ê·¸ ë³€í™”ëŸ‰ì„ ëˆ„ì í•˜ê³ ì‹¶ë‹¤.
         rx += my * rotSpeed * Time.deltaTime;
         ry += mx * rotSpeed * Time.deltaTime;
-        // ±× ´©Àû°ªÀ» È¸Àü°ªÀ¸·Î »ç¿ëÇÏ°í½Í´Ù.
+        // ê·¸ ëˆ„ì ê°’ì„ íšŒì „ê°’ìœ¼ë¡œ ì‚¬ìš©í•˜ê³ ì‹¶ë‹¤.
         rx = Mathf.Clamp(rx, -90, 90);
         transform.eulerAngles = new Vector3(-rx, ry, 0);
     }

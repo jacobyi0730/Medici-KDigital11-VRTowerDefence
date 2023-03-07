@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,14 +35,14 @@ public class EnemyBullet : MonoBehaviour
     {
         Material mat = GetComponent<MeshRenderer>().material;
         Color c = mat.color;
-        // 1ÃÊµ¿¾È Åõ¸íÇØÁö°í½Í´Ù.
+        // 1ì´ˆë™ì•ˆ íˆ¬ëª…í•´ì§€ê³ ì‹¶ë‹¤.
         for (float t = 0; t <= time; t += Time.deltaTime)
         {
             c.a = 1 - (t / time);
             mat.color = c;
             yield return 0;
         }
-        // 1ÃÊ°¡ Áö³ª¸é ÆÄ±«µÇ°í½Í´Ù.
+        // 1ì´ˆê°€ ì§€ë‚˜ë©´ íŒŒê´´ë˜ê³ ì‹¶ë‹¤.
         Destroy(gameObject);
     }
 }

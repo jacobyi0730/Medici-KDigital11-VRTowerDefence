@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,10 +9,10 @@ public class EnemyAnimEvent : MonoBehaviour
         enemy = GetComponentInParent<Enemy>();
     }
     public Enemy enemy;
-    // enemy°¡ player¿¡°Ô hitÇÏ´Â ¼ø°£
+    // enemyê°€ playerì—ê²Œ hití•˜ëŠ” ìˆœê°„
     public void OnMyAttackHit()
     {
-        // enemy¾ß ÇÃ·¹ÀÌ¾î °ø°İÇØ!!
+        // enemyì•¼ í”Œë ˆì´ì–´ ê³µê²©í•´!!
         enemy.OnMyAttackHit();
     }
 }

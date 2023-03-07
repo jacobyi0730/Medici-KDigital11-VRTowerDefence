@@ -1,10 +1,10 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// ¸¶¿ì½º ¿ŞÂÊ ¹öÆ°À» ´©¸£¸é hand¿¡¼­ handÀÇ ¾Õ¹æÇâÀ¸·Î
-// raycast¸¦ ÀÌ¿ëÇØ¼­ ÃÑÀ» ½î°í½Í´Ù.
-// ºÎµúÈù À§Ä¡¿¡ ÃÑ¾ËÀÚ±¹À» ³²±â°í½Í´Ù.
+// ë§ˆìš°ìŠ¤ ì™¼ìª½ ë²„íŠ¼ì„ ëˆ„ë¥´ë©´ handì—ì„œ handì˜ ì•ë°©í–¥ìœ¼ë¡œ
+// raycastë¥¼ ì´ìš©í•´ì„œ ì´ì„ ì˜ê³ ì‹¶ë‹¤.
+// ë¶€ë”ªíŒ ìœ„ì¹˜ì— ì´ì•Œìêµ­ì„ ë‚¨ê¸°ê³ ì‹¶ë‹¤.
 [RequireComponent(typeof(LineRenderer))]
 public class HandAction : MonoBehaviour
 {
@@ -27,19 +27,19 @@ public class HandAction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // hand¿¡¼­ handÀÇ ¾Õ¹æÇâÀ¸·Î
+        // handì—ì„œ handì˜ ì•ë°©í–¥ìœ¼ë¡œ
         Ray ray = new Ray(hand.position, hand.forward);
         lr.SetPosition(0, ray.origin);
         RaycastHit hitInfo;
-        // raycast¸¦ ÀÌ¿ëÇØ¼­ ÃÑÀ» ½î°í½Í´Ù.
+        // raycastë¥¼ ì´ìš©í•´ì„œ ì´ì„ ì˜ê³ ì‹¶ë‹¤.
         if (Physics.Raycast(ray, out hitInfo))
         {
             lr.SetPosition(1, hitInfo.point);
-            // ¸¶¿ì½º ¿ŞÂÊ ¹öÆ°À» ´©¸£¸é
+            // ë§ˆìš°ìŠ¤ ì™¼ìª½ ë²„íŠ¼ì„ ëˆ„ë¥´ë©´
             if (Input.GetButtonDown("Fire1"))
             {
                 GameObject prefab = null;
-                // ºÎµúÈù À§Ä¡¿¡ ÃÑ¾ËÀÚ±¹À» ³²±â°í½Í´Ù.
+                // ë¶€ë”ªíŒ ìœ„ì¹˜ì— ì´ì•Œìêµ­ì„ ë‚¨ê¸°ê³ ì‹¶ë‹¤.
                 if (hitInfo.transform.CompareTag("Enemy"))
                 {
                     prefab = bImpactFactoryList[(int)Hall.NO];

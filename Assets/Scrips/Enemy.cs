@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,8 +8,8 @@ using TMPro;
 
 using Random = UnityEngine.Random;
 
-// »óÅÂ¸¦ ¸¸µé°í Á¦¾îÇÏ°í½Í´Ù.
-// °Ë»ö, ÀÌµ¿, °ø°İ
+// ìƒíƒœë¥¼ ë§Œë“¤ê³  ì œì–´í•˜ê³ ì‹¶ë‹¤.
+// ê²€ìƒ‰, ì´ë™, ê³µê²©
 public class Enemy : MonoBehaviour
 {
     // Low Data
@@ -76,12 +76,12 @@ public class Enemy : MonoBehaviour
     private void UpdateWalk()
     {
         agent.SetDestination(target.transform.position);
-        // °Å¸®¸¦ ±¸ÇÏ°í
+        // ê±°ë¦¬ë¥¼ êµ¬í•˜ê³ 
         float dist = Vector3.Distance(transform.position, target.transform.position);
-        // ¸¸¾à °Å¸® < °ø°İ °¡´É °Å¸®¿¡ µµÂøÇß´Ù¸é
+        // ë§Œì•½ ê±°ë¦¬ < ê³µê²© ê°€ëŠ¥ ê±°ë¦¬ì— ë„ì°©í–ˆë‹¤ë©´
         if (dist < attackDistance)
         {
-            state = State.Attack; // °ø°İ »óÅÂ·Î ÀüÀÌÇÏ°í½Í´Ù.
+            state = State.Attack; // ê³µê²© ìƒíƒœë¡œ ì „ì´í•˜ê³ ì‹¶ë‹¤.
             anim.SetTrigger("Attack");
         }
     }
@@ -89,32 +89,32 @@ public class Enemy : MonoBehaviour
     GameObject target;
     private void UpdateFine()
     {
-        // °¡Àå °¡±î¿î Å¸¿ö¸¦ Ã£°í½Í´Ù.
+        // ê°€ì¥ ê°€ê¹Œìš´ íƒ€ì›Œë¥¼ ì°¾ê³ ì‹¶ë‹¤.
         GameObject[] towers = GameObject.FindGameObjectsWithTag("Tower");
-        // 1. ÃøÁ¤ÇÑ °Å¸®¸¦ ´ãÀ» º¯¼ö
+        // 1. ì¸¡ì •í•œ ê±°ë¦¬ë¥¼ ë‹´ì„ ë³€ìˆ˜
         float dist = float.MaxValue;
-        // 2. °¡Àå °¡±î¿î ÀÎµ¦½º
+        // 2. ê°€ì¥ ê°€ê¹Œìš´ ì¸ë±ìŠ¤
         int chooseIndex = -1;
         for (int i = 0; i < towers.Length; i++)
         {
-            // °¢ ¸ñÀûÁö¸¶´Ù °Å¸®(temp)¸¦ Àç°í½Í´Ù.
+            // ê° ëª©ì ì§€ë§ˆë‹¤ ê±°ë¦¬(temp)ë¥¼ ì¬ê³ ì‹¶ë‹¤.
             float temp = Vector3.Distance(transform.position, towers[i].transform.position);
-            if (dist > temp) // dist > temp ¶ó¸é
+            if (dist > temp) // dist > temp ë¼ë©´
             {
                 dist = temp;
                 chooseIndex = i;
             }
         }
-        // ±×°÷À» ¸ñÀûÁö·Î ÇÏ°í½Í´Ù.
+        // ê·¸ê³³ì„ ëª©ì ì§€ë¡œ í•˜ê³ ì‹¶ë‹¤.
         target = towers[chooseIndex];
-        // ÀÌµ¿ »óÅÂ·Î ÀüÀÌÇÏ°í½Í´Ù.
+        // ì´ë™ ìƒíƒœë¡œ ì „ì´í•˜ê³ ì‹¶ë‹¤.
         state = State.Walk;
     }
 
     public Transform firePosition;
     internal void OnMyAttackHit()
     {
-        // ÃÑ¾Ë°øÀå¿¡¼­ ÃÑ¾ËÀ» ¸¸µé¾î¼­ ÃÑ±¸À§Ä¡¿¡ ¹èÄ¡ÇÏ°í½Í´Ù.
+        // ì´ì•Œê³µì¥ì—ì„œ ì´ì•Œì„ ë§Œë“¤ì–´ì„œ ì´êµ¬ìœ„ì¹˜ì— ë°°ì¹˜í•˜ê³ ì‹¶ë‹¤.
         GameObject bullet = Instantiate(bulletFactory);
         bullet.transform.position = firePosition.position;
 

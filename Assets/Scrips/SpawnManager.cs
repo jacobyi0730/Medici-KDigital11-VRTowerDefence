@@ -1,9 +1,9 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// ½Ã°£ÀÌ Èå¸£´Ù°¡ »ı¼º½Ã°£ÀÌ µÇ¸é Àû °øÀå¿¡¼­ ÀûÀ» ¸¸µé¾î¼­ ·£´ıÇÑ À§Ä¡¿¡ ¹èÄ¡ÇÏ°í½Í´Ù.
-// ÀÏ¹İ Àû 5¸¶¸® ¸¸µé°í Æ¯º° Àû 1¸¶¸® ¸¸µé°í¸¦ ¹İº¹ÇÏ°í½Í´Ù. 
+// ì‹œê°„ì´ íë¥´ë‹¤ê°€ ìƒì„±ì‹œê°„ì´ ë˜ë©´ ì  ê³µì¥ì—ì„œ ì ì„ ë§Œë“¤ì–´ì„œ ëœë¤í•œ ìœ„ì¹˜ì— ë°°ì¹˜í•˜ê³ ì‹¶ë‹¤.
+// ì¼ë°˜ ì  5ë§ˆë¦¬ ë§Œë“¤ê³  íŠ¹ë³„ ì  1ë§ˆë¦¬ ë§Œë“¤ê³ ë¥¼ ë°˜ë³µí•˜ê³ ì‹¶ë‹¤. 
 public class SpawnManager : MonoBehaviour
 {
     float makeTime = 1;
@@ -14,7 +14,7 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
-        // ÅÂ¾î³¯ ¶§ ÀÚ½Ä °ÔÀÓ¿ÀºêÁ§Æ®¸¦ ´Ù °¡Á®¿À°í½Í´Ù.
+        // íƒœì–´ë‚  ë•Œ ìì‹ ê²Œì„ì˜¤ë¸Œì íŠ¸ë¥¼ ë‹¤ ê°€ì ¸ì˜¤ê³ ì‹¶ë‹¤.
         MeshFilter[] s = GetComponentsInChildren<MeshFilter>();
         spawnList = new Transform[s.Length];
         for (int i = 0; i < s.Length; i++)
@@ -28,7 +28,7 @@ public class SpawnManager : MonoBehaviour
 
             GameObject enemy = Instantiate(enemyFactory);
 
-            // spawnListÁß¿¡ ·£´ıÀ¸·Î ÇÏ³ª Á¤ÇØ¼­ ±× À§Ä¡¿¡ ¹èÄ¡ÇÏ°í½Í´Ù.
+            // spawnListì¤‘ì— ëœë¤ìœ¼ë¡œ í•˜ë‚˜ ì •í•´ì„œ ê·¸ ìœ„ì¹˜ì— ë°°ì¹˜í•˜ê³ ì‹¶ë‹¤.
             int chooseIndex = Random.Range(0, spawnList.Length);
 
             Transform choose = spawnList[chooseIndex];

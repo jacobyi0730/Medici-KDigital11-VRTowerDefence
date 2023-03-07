@@ -1,22 +1,22 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Æ®¸®°Å ¹öÆ°À» ´©¸£¸é ÅÚ·¹Æ÷Æ® ¼±ÀÌ È°¼ºÈ­ µÇ°í
-// Æ®¸®°Å ¹öÆ°À» ¶¼¸é ÅÚ·¹Æ÷Æ® ¼±ÀÌ ºñÈ°¼ºÈ­ µÈ´Ù.
-// ¹öÆ°À» ¶ÂÀ» ¶§ ºÎµúÈù °÷ÀÌ Å¸¿ö¶ó¸é ±×°÷À¸·Î ÀÌµ¿ÇÏ°í½Í´Ù.
+// íŠ¸ë¦¬ê±° ë²„íŠ¼ì„ ëˆ„ë¥´ë©´ í…”ë ˆí¬íŠ¸ ì„ ì´ í™œì„±í™” ë˜ê³ 
+// íŠ¸ë¦¬ê±° ë²„íŠ¼ì„ ë–¼ë©´ í…”ë ˆí¬íŠ¸ ì„ ì´ ë¹„í™œì„±í™” ëœë‹¤.
+// ë²„íŠ¼ì„ ë—ì„ ë•Œ ë¶€ë”ªíŒ ê³³ì´ íƒ€ì›Œë¼ë©´ ê·¸ê³³ìœ¼ë¡œ ì´ë™í•˜ê³ ì‹¶ë‹¤.
 public class Teleport : MonoBehaviour
 {
-    // Æ®¸®°Å ¹öÆ°Àº ÀÏ´Ü ¸¶¿ì½º ¿À¸¥ÂÊ ¹öÆ°À» ÀÇ¹ÌÇÑ´Ù.
-    // ¼±.
+    // íŠ¸ë¦¬ê±° ë²„íŠ¼ì€ ì¼ë‹¨ ë§ˆìš°ìŠ¤ ì˜¤ë¥¸ìª½ ë²„íŠ¼ì„ ì˜ë¯¸í•œë‹¤.
+    // ì„ .
     LineRenderer lr;
-    // ¼Õ.
+    // ì†.
     public Transform hand;
     public Player player;
     Transform target = null;
     
     public Transform teleportIcon;
-    // ¸Ö¾îÁ®µµ ¶È°°Àº Å©±â·Î º¸°í½Í´Ù.
+    // ë©€ì–´ì ¸ë„ ë˜‘ê°™ì€ í¬ê¸°ë¡œ ë³´ê³ ì‹¶ë‹¤.
     public float kAdjust = 1;
 
     // Start is called before the first frame update
@@ -28,7 +28,7 @@ public class Teleport : MonoBehaviour
             lr = gameObject.AddComponent<LineRenderer>();
         }
 
-        // ÅÂ¾î³¯ ¶§ ¼±°ú ¾ÆÀÌÄÜÀ» ºñÈ°¼º ÇÏ°í½Í´Ù.
+        // íƒœì–´ë‚  ë•Œ ì„ ê³¼ ì•„ì´ì½˜ì„ ë¹„í™œì„± í•˜ê³ ì‹¶ë‹¤.
         lr.enabled = false;
         teleportIcon.gameObject.SetActive(false);
     }
@@ -46,13 +46,13 @@ public class Teleport : MonoBehaviour
         {
             lr.enabled = false;
             teleportIcon.gameObject.SetActive(false);
-            // ¼ÕÀ» ¶ÂÀ» ¶§ Å¸¿ö¸¦ ¹Ù¶óº¸°í ÀÖ¾ú´Ù¸é ±×°÷À¸·Î ÀÌµ¿.
+            // ì†ì„ ë—ì„ ë•Œ íƒ€ì›Œë¥¼ ë°”ë¼ë³´ê³  ìˆì—ˆë‹¤ë©´ ê·¸ê³³ìœ¼ë¡œ ì´ë™.
             if (target != null)
             {
                 player.transform.position = target.position;
                 target = null;
             }
-            // ±×·¸Áö ¾Ê´Ù¸é ¾Æ¹«°Íµµ ¾ÈÇÔ.
+            // ê·¸ë ‡ì§€ ì•Šë‹¤ë©´ ì•„ë¬´ê²ƒë„ ì•ˆí•¨.
         }
 
         if (lr.enabled /*&& Input.GetButton("Fire2")*/)
