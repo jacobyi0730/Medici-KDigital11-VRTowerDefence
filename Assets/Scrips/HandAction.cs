@@ -43,6 +43,8 @@ public class HandAction : MonoBehaviour
                 if (hitInfo.transform.CompareTag("Enemy"))
                 {
                     prefab = bImpactFactoryList[(int)Hall.NO];
+
+
                 }
                 else
                 {
