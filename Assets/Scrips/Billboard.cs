@@ -14,5 +14,15 @@ public class Billboard : MonoBehaviour
     void Update()
     {
         transform.rotation = cam.transform.rotation;
+
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Time.timeScale = 30;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Time.timeScale = 1;
+        }
     }
 }
