@@ -29,7 +29,7 @@ public class SpawnManager : MonoBehaviour
             GameObject enemy = Instantiate(enemyFactory);
 
             // spawnList중에 랜덤으로 하나 정해서 그 위치에 배치하고싶다.
-            int chooseIndex = Random.Range(0, spawnList.Length);
+            int chooseIndex = 0; //Random.Range(0, spawnList.Length);
 
             Transform choose = spawnList[chooseIndex];
 

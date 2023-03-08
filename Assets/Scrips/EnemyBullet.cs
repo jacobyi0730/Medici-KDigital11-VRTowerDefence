@@ -16,7 +16,7 @@ public class EnemyBullet : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (false == rb.isKinematic)
+        if (false == rb.isKinematic && rb.velocity != Vector3.zero)
         {
             transform.forward = rb.velocity;
         }

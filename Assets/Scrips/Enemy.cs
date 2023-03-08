@@ -45,6 +45,7 @@ public class Enemy : MonoBehaviour
     Animator anim;
 
     GameObject bulletFactory;
+    public float attackDistance = 12;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,6 +56,8 @@ public class Enemy : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
         agent.Warp(transform.position);
+
+        agent.stoppingDistance = attackDistance;
     }
 
     // Update is called once per frame
@@ -62,7 +65,7 @@ public class Enemy : MonoBehaviour
     {
         switch (state)
         {
-        case State.Find: UpdateFine(); break;
+        case State.Find: UpdateFind(); break;
         case State.Walk: UpdateWalk(); break;
         case State.Attack: UpdateAttack(); break;
         }
@@ -70,9 +73,15 @@ public class Enemy : MonoBehaviour
 
     private void UpdateAttack()
     {
+        // 목적지의 체력이 0이면
+        if (target != null && target.hp == 0)
+        {
+            // 다른 목적지를 찾고싶다.
+            state = State.Find;
+            anim.SetTrigger("Walk");
+        }
     }
 
-    float attackDistance = 12;
     private void UpdateWalk()
     {
         agent.SetDestination(target.transform.position);
@@ -86,17 +95,21 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    GameObject target;
-    private void UpdateFine()
+    Tower target;
+    private void UpdateFind()
     {
         // 가장 가까운 타워를 찾고싶다.
-        GameObject[] towers = GameObject.FindGameObjectsWithTag("Tower");
+        Tower[] towers = GameObject.FindObjectsOfType<Tower>();
         // 1. 측정한 거리를 담을 변수
         float dist = float.MaxValue;
         // 2. 가장 가까운 인덱스
         int chooseIndex = -1;
         for (int i = 0; i < towers.Length; i++)
         {
+            if (towers[i].hp == 0)
+            {
+                continue;
+            }
             // 각 목적지마다 거리(temp)를 재고싶다.
             float temp = Vector3.Distance(transform.position, towers[i].transform.position);
             if (dist > temp) // dist > temp 라면
@@ -105,10 +118,14 @@ public class Enemy : MonoBehaviour
                 chooseIndex = i;
             }
         }
-        // 그곳을 목적지로 하고싶다.
-        target = towers[chooseIndex];
-        // 이동 상태로 전이하고싶다.
-        state = State.Walk;
+        // 목적지를 골랐다면
+        if (chooseIndex != -1)
+        {
+            // 그곳을 목적지로 하고싶다.
+            target = towers[chooseIndex];
+            // 이동 상태로 전이하고싶다.
+            state = State.Walk;
+        }
     }
 
     public Transform firePosition;
