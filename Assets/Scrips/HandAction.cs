@@ -44,6 +44,10 @@ public class HandAction : MonoBehaviour
                 {
                     prefab = bImpactFactoryList[(int)Hall.NO];
 
+                    Enemy enemy = hitInfo.transform.GetComponent<Enemy>();
+
+                    enemy.OnMyDamageProcess(1);
+
 
                 }
                 else

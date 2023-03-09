@@ -20,14 +20,15 @@ public class Enemy : MonoBehaviour
 
     public Slider sliderHP;
 
-   
+
 
     public TextMeshProUGUI textHP;
     int hp;
     int HP
     {
         get { return hp; }
-        set {
+        set
+        {
             hp = value;
             sliderHP.value = hp;
             textHP.text = hp + " / " + MaxHP;
@@ -39,7 +40,10 @@ public class Enemy : MonoBehaviour
     {
         Find,
         Walk,
-        Attack
+        Attack,
+        Damage,
+        Die,    // 바로 터짐
+        Boom    // 공중 도약 후 터짐
     }
     State state;
     Animator anim;
@@ -65,9 +69,38 @@ public class Enemy : MonoBehaviour
     {
         switch (state)
         {
-        case State.Find: UpdateFind(); break;
-        case State.Walk: UpdateWalk(); break;
-        case State.Attack: UpdateAttack(); break;
+            case State.Find: UpdateFind(); break;
+            case State.Walk: UpdateWalk(); break;
+            case State.Attack: UpdateAttack(); break;
+            case State.Damage: UpdateDamage(); break;
+            case State.Die: UpdateDie(); break;
+            case State.Boom: UpdateBoom(); break;
+        }
+    }
+
+    private void UpdateBoom()
+    {
+    }
+
+    private void UpdateDie()
+    {
+        Destroy(gameObject);
+    }
+    
+
+    float currentTime;
+    private void UpdateDamage()
+    {
+        // 시간이 흐르다가
+        currentTime += Time.deltaTime;
+        // 1초가 지나면
+        if (currentTime > 1)
+        {
+            // 이동상태로 전이하고싶다.
+            state = State.Walk;
+            // 다시 agent에게 움직이라고 하고싶다.
+            agent.isStopped = false;
+            anim.speed = 1;
         }
     }
 
@@ -140,5 +173,44 @@ public class Enemy : MonoBehaviour
         bullet.transform.forward = randTarget - firePosition.position;
 
 
+    }
+
+    public void OnMyDamageProcess(int damage, bool isBoom = false)
+    {
+        // 체력을 감점 시키고싶다.
+        HP -= damage;
+        if (HP < 0)
+        {
+            HP = 0;
+        }
+        // agent를 멈추고싶다.
+        agent.isStopped = true;
+
+        // 만약 체력이 남았다면 
+        if (HP > 0)
+        {
+            //  Damage 상태로 전이하고싶다.
+            state = State.Damage;
+            anim.speed = 0;
+        }
+        // 그렇지않고 isBoom이 참이라면
+        else if (isBoom) // HP == 0 && isBoom
+        {
+            //  Boom상태로 전이하고싶다.
+            state = State.Boom;
+            agent.enabled = false;
+        }
+        // 이도저도 아니라면
+        else  // HP == 0 && false == isBoom
+        {
+            //  Die상태로 전이하고싶다.
+            state = State.Die;
+            // 폭발 VFX를 표현하고싶다.
+            GameObject explosionFactory = Resources.Load("Explosion") as GameObject;
+
+            GameObject exp = Instantiate(explosionFactory);
+            exp.transform.position = transform.position;
+            Destroy(exp, 2);
+        }
     }
 }

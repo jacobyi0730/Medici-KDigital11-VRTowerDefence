@@ -14,13 +14,9 @@ public class TowerManager : MonoBehaviour
         TowerManager.instance = this;
     }
 
-    public Slider sliderTower1;
-    public Slider sliderTower2;
-    public Slider sliderTower3;
+    public Slider[] sliderTower;
+    public Tower[] towers;
 
-    public Tower tower1;
-    public Tower tower2;
-    public Tower tower3;
 
     // 타워의 체력이 변화되었다.
     public void OnMyTowerDamage(Tower tower)
@@ -29,9 +25,18 @@ public class TowerManager : MonoBehaviour
         Slider ui = GetSlider(tower.id);
         ui.value = tower.hp;
         // 모든타워의 체력을 검사
-        if (tower1.hp == 0 && tower2.hp == 0 && tower3.hp == 0)
+        bool isGameOver = true;
+        for (int i = 0; i < towers.Length; i++)
         {
-            // 게임오버
+            if (towers[i].hp != 0)
+            {
+                isGameOver = false;
+                break;
+            }
+        }
+        if (true == isGameOver)
+        {
+            // 게임오버...
             Time.timeScale = 0;
         }
     }
@@ -45,15 +50,7 @@ public class TowerManager : MonoBehaviour
 
     Slider GetSlider(int id)
     {
-        if (id == 1)
-        {
-            return sliderTower1;
-        }
-        else if (id == 2)
-        {
-            return sliderTower2;
-        }
-        return sliderTower3;
+        return sliderTower[id - 1];
     }
 
     // Start is called before the first frame update

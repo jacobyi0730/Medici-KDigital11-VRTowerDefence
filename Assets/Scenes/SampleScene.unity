@@ -715,12 +715,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c811b125852f84c4db7c1e0f3e25bfc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sliderTower1: {fileID: 1773112519}
-  sliderTower2: {fileID: 117011826}
-  sliderTower3: {fileID: 1412725614}
-  tower1: {fileID: 1312275287}
-  tower2: {fileID: 173577615}
-  tower3: {fileID: 1728142722}
+  sliderTower:
+  - {fileID: 1773112519}
+  - {fileID: 117011826}
+  - {fileID: 1412725614}
+  towers:
+  - {fileID: 1312275287}
+  - {fileID: 173577615}
+  - {fileID: 1728142722}
 --- !u!114 &284384963
 MonoBehaviour:
   m_ObjectHideFlags: 0
