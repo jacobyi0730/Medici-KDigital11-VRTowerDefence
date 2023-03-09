@@ -24,9 +24,23 @@ public class HandAction : MonoBehaviour
         lr = GetComponent<LineRenderer>();
     }
 
+    float zoom = 60;
+    float zoomSpeed = 50;
+    public Camera scopeCamera;
     // Update is called once per frame
     void Update()
     {
+        // -1, 0 , 1
+        Vector2 axis = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick, OVRInput.Controller.RTouch);
+        zoom += zoomSpeed * axis.y * Time.deltaTime;
+        zoom = Mathf.Clamp(zoom, 10, 150);
+        scopeCamera.fieldOfView = zoom;
+
+
+
+
+
+
         // hand에서 hand의 앞방향으로
         Ray ray = new Ray(hand.position, hand.forward);
         lr.SetPosition(0, ray.origin);
@@ -35,8 +49,10 @@ public class HandAction : MonoBehaviour
         if (Physics.Raycast(ray, out hitInfo))
         {
             lr.SetPosition(1, hitInfo.point);
+            
             // 마우스 왼쪽 버튼을 누르면
-            if (Input.GetButtonDown("Fire1"))
+            //if (Input.GetButtonDown("Fire1"))
+            if (OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.RTouch))
             {
                 GameObject prefab = null;
                 // 부딪힌 위치에 총알자국을 남기고싶다.
