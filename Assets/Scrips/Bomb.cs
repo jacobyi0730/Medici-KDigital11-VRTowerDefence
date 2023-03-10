@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
-    public bool canExplosion {
+    public bool canExplosion
+    {
         get;
         set;
     }
@@ -17,6 +18,8 @@ public class Bomb : MonoBehaviour
         {
             return;
         }
+
+        print("OnCollisionEnter");
         // 폭발VFX를 표현하고
         Vector3 hitPoint = collision.contacts[0].point;
         GameObject exp = Instantiate(explosionFactory);
@@ -27,9 +30,9 @@ public class Bomb : MonoBehaviour
         int layerMask = 1 << LayerMask.NameToLayer("Enemy");
         Collider[] cols = Physics.OverlapSphere(hitPoint, 5, layerMask);
         // 반경 5M안의 적에게 2점 데미지를 입히고 죽었다면 Boom상태로 전이하게 하고싶다.
-        for (int i=0; i<cols.Length; i++)
+        for (int i = 0; i < cols.Length; i++)
         {
-            Enemy enemy = cols[i].GetComponent<Enemy>();
+            Enemy enemy = cols[i].transform.GetComponent<Enemy>();
             if (null != enemy)
             {
                 enemy.OnMyDamageProcess(2, true);

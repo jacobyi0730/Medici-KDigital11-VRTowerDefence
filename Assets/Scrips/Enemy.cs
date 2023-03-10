@@ -80,14 +80,23 @@ public class Enemy : MonoBehaviour
 
     private void UpdateBoom()
     {
-        Destroy(gameObject);
+        // 시간이 흐르다가
+        currentTime += Time.deltaTime;
+        // 2초후에
+        if (currentTime > 2)
+        {
+            // VFX를 보이게하고
+            ShowVFX();
+            // 파괴되고싶다.
+            Destroy(gameObject);
+        }
     }
 
     private void UpdateDie()
     {
         Destroy(gameObject);
     }
-    
+
 
     float currentTime;
     private void UpdateDamage()
@@ -198,20 +207,35 @@ public class Enemy : MonoBehaviour
         else if (isBoom) // HP == 0 && isBoom
         {
             //  Boom상태로 전이하고싶다.
+            print("OnMyDamageProcess, Boom");
             state = State.Boom;
             agent.enabled = false;
+            anim.speed = 0;
+
+            Rigidbody rb = gameObject.AddComponent<Rigidbody>();
+
+            Vector3 force = new Vector3(Random.Range(-1f, 1f), 2, Random.Range(-1f, 1f));
+            force.Normalize();
+            rb.AddForceAtPosition(force * 20, transform.position, ForceMode.Impulse);
+            
+            currentTime = 0;
         }
         // 이도저도 아니라면
         else  // HP == 0 && false == isBoom
         {
             //  Die상태로 전이하고싶다.
             state = State.Die;
-            // 폭발 VFX를 표현하고싶다.
-            GameObject explosionFactory = Resources.Load("Explosion") as GameObject;
-
-            GameObject exp = Instantiate(explosionFactory);
-            exp.transform.position = transform.position;
-            Destroy(exp, 2);
+            ShowVFX();
         }
+    }
+
+    void ShowVFX()
+    {
+        // 폭발 VFX를 표현하고싶다.
+        GameObject explosionFactory = Resources.Load("Explosion") as GameObject;
+
+        GameObject exp = Instantiate(explosionFactory);
+        exp.transform.position = transform.position;
+        Destroy(exp, 2);
     }
 }
