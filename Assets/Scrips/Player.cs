@@ -35,15 +35,14 @@ public class Player : MonoBehaviour
     {
         var channel = controller == OVRInput.Controller.LTouch ? OVRHaptics.LeftChannel : OVRHaptics.RightChannel;
 
-        OVRHapticsClip createdClip;
-        createdClip = new OVRHapticsClip(iteration);
+        byte[] sample = new byte[iteration];
 
         for (int i = 0; i < iteration; i++)
         {
-            createdClip.Samples[i] = i % frequency == 0 ? (byte)0 : (byte)strength;
+            sample[i] = i % frequency == 0 ? (byte)0 : (byte)strength;
         }
 
-        createdClip = new OVRHapticsClip(createdClip.Samples, createdClip.Samples.Length);
+        OVRHapticsClip  createdClip = new OVRHapticsClip(sample, sample.Length);
 
         for (float t = 0; t <= time; t += Time.deltaTime)
         {
