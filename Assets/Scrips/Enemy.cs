@@ -80,6 +80,7 @@ public class Enemy : MonoBehaviour
 
     private void UpdateBoom()
     {
+        Destroy(gameObject);
     }
 
     private void UpdateDie()
