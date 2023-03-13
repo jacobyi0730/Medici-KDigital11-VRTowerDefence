@@ -16,6 +16,7 @@ public class TowerManager : MonoBehaviour
 
     public Slider[] sliderTower;
     public Tower[] towers;
+    public int towerMaxHP = 1000;
 
     public GameObject gameOverUI;
 
@@ -24,6 +25,12 @@ public class TowerManager : MonoBehaviour
     {
         // 태어날 때 게임오버 UI를 안보이게하고싶다.
         gameOverUI.SetActive(false);
+
+        foreach (var tower in towers)
+        {
+            tower.maxHP = towerMaxHP;
+        }
+
     }
 
     // 타워의 체력이 변화되었다.

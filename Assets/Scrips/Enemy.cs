@@ -187,6 +187,10 @@ public class Enemy : MonoBehaviour
 
     public void OnMyDamageProcess(int damage, bool isBoom = false)
     {
+        if (HP <= 0)
+        {
+            return;
+        }
         // 체력을 감점 시키고싶다.
         HP -= damage;
         if (HP < 0)
@@ -217,7 +221,7 @@ public class Enemy : MonoBehaviour
             Vector3 force = new Vector3(Random.Range(-1f, 1f), 2, Random.Range(-1f, 1f));
             force.Normalize();
             rb.AddForceAtPosition(force * 20, transform.position, ForceMode.Impulse);
-            
+
             currentTime = 0;
         }
         // 이도저도 아니라면

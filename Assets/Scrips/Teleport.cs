@@ -17,7 +17,7 @@ public class Teleport : MonoBehaviour
     
     public Transform teleportIcon;
     // 멀어져도 똑같은 크기로 보고싶다.
-    public float kAdjust = 1;
+    public float kAdjust = 0.1f;
 
     // Start is called before the first frame update
     void Start()
