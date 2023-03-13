@@ -1,11 +1,11 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// ¸¸¾à ÇÚµåÆ®¸®°Å¸¦ ´­·¶À» ¶§ ¹İ´ëÂÊ ÄÁÆ®·Ñ·¯¿ÍÀÇ °Å¸®°¡ 2M ÀÌÇÏ¶ó¸é
-// ¼Õ¿¡ ÆøÅº(GripObject)À» Áã°í½Í´Ù.
-// ¸¸¾à ÇÚµåÆ®¸®°Å¸¦ ¶ÂÀ» ¶§ ¼Õ¿¡ ÆøÅºÀÌ ÀÖ´Ù¸é ³õ°í½Í´Ù.
+// ë§Œì•½ í•¸ë“œíŠ¸ë¦¬ê±°ë¥¼ ëˆŒë €ì„ ë•Œ ë°˜ëŒ€ìª½ ì»¨íŠ¸ë¡¤ëŸ¬ì™€ì˜ ê±°ë¦¬ê°€ 2M ì´í•˜ë¼ë©´
+// ì†ì— í­íƒ„(GripObject)ì„ ì¥ê³ ì‹¶ë‹¤.
+// ë§Œì•½ í•¸ë“œíŠ¸ë¦¬ê±°ë¥¼ ë—ì„ ë•Œ ì†ì— í­íƒ„ì´ ìˆë‹¤ë©´ ë†“ê³ ì‹¶ë‹¤.
 public class HandGrip : MonoBehaviour
 {
     public OVRInput.Controller controlller;
@@ -22,13 +22,13 @@ public class HandGrip : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // ¸¸¾à ÇÚµåÆ®¸®°Å¸¦ ´­·¶À» ¶§
+        // ë§Œì•½ í•¸ë“œíŠ¸ë¦¬ê±°ë¥¼ ëˆŒë €ì„ ë•Œ
         if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, controlller))
         {
             DoGrab();
         }
 
-        // ¸¸¾à ÇÚµåÆ®¸®°Å¸¦ ¶ÂÀ» ¶§ 
+        // ë§Œì•½ í•¸ë“œíŠ¸ë¦¬ê±°ë¥¼ ë—ì„ ë•Œ 
         if (OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger, controlller))
         {
             DoThrow();
@@ -38,45 +38,46 @@ public class HandGrip : MonoBehaviour
     public float kAdjustVelocity = 5;
     private void DoThrow()
     {
-        // ¼Õ¿¡ ÆøÅºÀÌ ÀÖ´Ù¸é
+        // ì†ì— í­íƒ„ì´ ìˆë‹¤ë©´
         if (null != gripObj)
         {
-            // ³õ°í½Í´Ù.
-            // ºÎ¸ğÀÚ½Ä °ü°è¸¦ ²÷°í
+            // ë†“ê³ ì‹¶ë‹¤.
+            // ë¶€ëª¨ìì‹ ê´€ê³„ë¥¼ ëŠê³ 
             gripObj.transform.parent = null;
-            // ÆøÅºÀÇ ¹°¸®¸¦ ÄÑ°í
+            // í­íƒ„ì˜ ë¬¼ë¦¬ë¥¼ ì¼œê³ 
             Rigidbody bombRB = gripObj.GetComponent<Rigidbody>();
             bombRB.isKinematic = false;
-            // ÄÁÆ®·Ñ·¯ÀÇ ¼Óµµ¿Í °¢¼Óµµ¸¦ ÆøÅº¿¡°Ô ³Ñ°ÜÁÖ°í½Í´Ù.
+            // ì»¨íŠ¸ë¡¤ëŸ¬ì˜ ì†ë„ì™€ ê°ì†ë„ë¥¼ í­íƒ„ì—ê²Œ ë„˜ê²¨ì£¼ê³ ì‹¶ë‹¤.
             bombRB.velocity = OVRInput.GetLocalControllerVelocity(controlller) * kAdjustVelocity;
             bombRB.angularVelocity = OVRInput.GetLocalControllerAngularVelocity(controlller);
-            // ¸¸¾à BombÀÌ¶ó¸é "¼Õ¿¡¼­ ³õ¾ÒÀ¸´Ï ÅÍÁ®µµ µÇ" ¶ó°í ÇÏ°í½Í´Ù.
+            // ë§Œì•½ Bombì´ë¼ë©´ "ì†ì—ì„œ ë†“ì•˜ìœ¼ë‹ˆ í„°ì ¸ë„ ë˜" ë¼ê³  í•˜ê³ ì‹¶ë‹¤.
             Bomb bomb = gripObj.GetComponent<Bomb>();
             if (null != bomb)
             {
                 bomb.canExplosion = true;
             }
-            // ´øÁ³À¸¸é "¹°Ã¼¸¦ ³õ¾Ò´Ù" ¶ó°í ÇÏ°í½Í´Ù.
+
+            // ë˜ì¡Œìœ¼ë©´ "ë¬¼ì²´ë¥¼ ë†“ì•˜ë‹¤" ë¼ê³  í•˜ê³ ì‹¶ë‹¤.
             gripObj = null;
         }
     }
 
     private void DoGrab()
     {
-        // ¹İ´ëÂÊ ÄÁÆ®·Ñ·¯¿ÍÀÇ °Å¸®°¡ 2M ÀÌÇÏ¶ó¸é
+        // ë°˜ëŒ€ìª½ ì»¨íŠ¸ë¡¤ëŸ¬ì™€ì˜ ê±°ë¦¬ê°€ 2M ì´í•˜ë¼ë©´
         float dist = Vector3.Distance(transform.position, otherHand.position);
         if (dist < 2)
         {
-            // ¼Õ¿¡ ÆøÅº(GripObject)À» Áã°í½Í´Ù.
+            // ì†ì— í­íƒ„(GripObject)ì„ ì¥ê³ ì‹¶ë‹¤.
             GameObject bomb = Instantiate(bombFactory);
-            // ³ªÀÇ ºÎ¸ğ = ³Ê
+            // ë‚˜ì˜ ë¶€ëª¨ = ë„ˆ
             bomb.transform.parent = transform;
             bomb.transform.localPosition = Vector3.zero;
             bomb.transform.forward = transform.forward;
-            // bombÀÇ ¹°¸®¸¦ ²ô°í½Í´Ù.
+            // bombì˜ ë¬¼ë¦¬ë¥¼ ë„ê³ ì‹¶ë‹¤.
             Rigidbody bombRB = bomb.GetComponent<Rigidbody>();
             bombRB.isKinematic = true;
-            // ¼Õ¿¡ Áå ÆøÅºÀ» ±â¾ïÇÏ°í½Í´Ù.
+            // ì†ì— ì¥” í­íƒ„ì„ ê¸°ì–µí•˜ê³ ì‹¶ë‹¤.
             gripObj = bomb;
 
         }

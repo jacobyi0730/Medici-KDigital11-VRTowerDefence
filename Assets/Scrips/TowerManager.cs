@@ -17,6 +17,14 @@ public class TowerManager : MonoBehaviour
     public Slider[] sliderTower;
     public Tower[] towers;
 
+    public GameObject gameOverUI;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        // 태어날 때 게임오버 UI를 안보이게하고싶다.
+        gameOverUI.SetActive(false);
+    }
 
     // 타워의 체력이 변화되었다.
     public void OnMyTowerDamage(Tower tower)
@@ -37,7 +45,8 @@ public class TowerManager : MonoBehaviour
         if (true == isGameOver)
         {
             // 게임오버...
-            Time.timeScale = 0;
+            //Time.timeScale = 0;
+            gameOverUI.SetActive(true);
         }
     }
 
@@ -53,12 +62,7 @@ public class TowerManager : MonoBehaviour
         return sliderTower[id - 1];
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
+    
     // Update is called once per frame
     void Update()
     {

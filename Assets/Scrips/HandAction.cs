@@ -44,17 +44,6 @@ public class HandAction : MonoBehaviour
         // raycast를 이용해서 총을 쏘고싶다.
         if (Physics.Raycast(ray, out hitInfo))
         {
-            if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
-            {
-                UnityEngine.UI.Button button = hitInfo.transform.GetComponent<UnityEngine.UI.Button>();
-                if (null != button)
-                {
-                    button.onClick.Invoke();
-                }
-            }
-
-
-
             lr.SetPosition(1, hitInfo.point);
             
             // 마우스 왼쪽 버튼을 누르면
